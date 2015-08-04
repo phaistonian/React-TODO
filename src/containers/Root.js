@@ -5,8 +5,12 @@ import todos from '../reducers/todos';
 import App from './App';
 
 // App
-const store = createStore(todos);
+let store;
 export default class Root extends Component {
+  constructor (props) {
+    super(props);
+    store = createStore(todos);
+  }
   render () {
     return (
       <Provider store={store}>

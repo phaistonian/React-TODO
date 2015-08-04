@@ -8,6 +8,8 @@ const initialState = [{
   title: 'First todo',
   completed: false
 }];
+const MAX_TODOS = 5;
+
 let counter = 0;
 function todos (state = initialState, action) {
   const { id, title, type } = action;
@@ -163,7 +165,7 @@ class App extends Component {
     }
     return (
       <div>
-        <Header add={actions.add} />
+        <Header add={actions.add} todosLeft={MAX_TODOS - todos.length} />
         <Todos todos={filteredTodos} {...actions} />
         <Footer hideCompleted={::this.hideCompleted} />
       </div>
@@ -185,7 +187,6 @@ class Header extends Component {
 
   handleSubmit (event) {
     event.preventDefault();
-
     this.props.add(this.state.title);
     this.setState({title: ''});
   }
@@ -194,6 +195,7 @@ class Header extends Component {
     return (
       <form onSubmit={::this.handleSubmit}>
         <input
+          disabled={this.props.todosLeft === 0}
           autoFocus
           placeholder="type here"
           ref="input"

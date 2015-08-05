@@ -34,6 +34,7 @@ export default class App extends Component {
     } else {
       filteredTodos = todos;
     }
+
     return (
       <div>
         <Header add={actions.add} todosLeft={MAX_TODOS - todos.length} />

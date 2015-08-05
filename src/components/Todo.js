@@ -9,10 +9,8 @@ export default class Todo extends Component {
   }
 
   componentDidUpdate () {
-    let editing = this.props.todos.filter(todo => todo.editing)[0];
-    if (editing) {
-      this.refs[`i-${editing.id}`].getDOMNode().select();
-      this.refs[`i-${editing.id}`].getDOMNode().focus();
+    if (this.state.isEditing) {
+      this.refs.edit.getDOMNode().select();
     }
   }
 
@@ -36,10 +34,10 @@ export default class Todo extends Component {
 
   render () {
     const { todo } = this.props;
-      let styles = {
-        textDecoration: todo.completed ? 'line-through' : 'none'
-      };
-      console.log(this.props);
+    let styles = {
+      textDecoration: todo.completed ? 'line-through' : 'none'
+    };
+
     return (
       <li key={`key-${todo.id}`} style={styles}>
         <input
@@ -49,8 +47,8 @@ export default class Todo extends Component {
         &nbsp;
         {this.state.isEditing ?
           <input
+            ref="edit"
             type="text"
-            ref={`i-${todo.id}`}
             defaultValue={todo.title}
             onKeyDown={this.handleKeyDown.bind(this, todo)} />
           : todo.title

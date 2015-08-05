@@ -27,20 +27,6 @@ export function uncomplete (id) {
   };
 }
 
-export function edit (id) {
-  return {
-    type: 'EDIT',
-    id
-  };
-}
-
-export function done_editing (id) {
-  return {
-    type: 'DONE_EDITING',
-    id
-  };
-}
-
 export function update (id, title) {
   return {
     type: 'UPDATE',

@@ -47,7 +47,7 @@ export default class Todos extends Component {
   render () {
     const configs = this.getEndValue();
     const todos = this.props.todos;
-
+    console.log(configs);
 
     console.log(Object.keys(configs));
     console.log(todos);

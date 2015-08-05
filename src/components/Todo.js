@@ -31,7 +31,6 @@ export default class Todo extends Component {
     }
   }
 
-
   render () {
     const { todo } = this.props;
     let styles = {
@@ -56,12 +55,12 @@ export default class Todo extends Component {
         &nbsp;
         <a href="#" onClick={::this.handleEdit}>
           {!this.state.isEditing ?
-            'edit' :
-            'done_editing'
+            'Edit' :
+            'Done'
           }
         </a>
         &nbsp;
-        <a href="#" onClick={this.props.remove.bind(this, todo.id)}>delete</a>
+        <a href="#" onClick={this.props.remove.bind(this, todo.id)}>Delete</a>
       </li>
     );
   }

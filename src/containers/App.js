@@ -5,8 +5,7 @@ import Header from '../components/Header';
 import Todos from '../components/Todos';
 import Footer from '../components/Footer';
 import * as TodoActions from '../actions/TodoActions';
-import MAX_TODOS from '../constants/AppConstants';
-
+import { MAX_TODOS } from '../constants/AppConstants';
 
 @connect(state => ({ todos: state }))
 export default class App extends Component {

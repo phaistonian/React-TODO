@@ -33,9 +33,10 @@ export default class Todo extends Component {
 
   render () {
     const { todo } = this.props;
-    let styles = {
+    let styles = Object.assign({
       textDecoration: todo.completed ? 'line-through' : 'none'
-    };
+    }, this.props.style);
+
 
     return (
       <li key={`key-${todo.id}`} style={styles}>

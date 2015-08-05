@@ -4,12 +4,25 @@ import { TransitionSpring } from 'react-motion';
 
 export default class Todos extends Component {
 
+  getDefaultValue () {
+    let todos = this.props.todos;
+    let configs = {};
+
+    todos.forEach((todo, index) => {
+      configs[`key-${index}`] = {
+        opacity: { val: 0 }
+      };
+    });
+
+    return configs;
+  }
+
   getEndValue() {
     let todos = this.props.todos;
     let configs = {};
 
     todos.forEach((todo, index) => {
-      configs[index] = {
+      configs[`key-${index}`] = {
         opacity: { val: 1 }
       };
     });
@@ -23,33 +36,41 @@ export default class Todos extends Component {
     };
   }
 
+  willLeave () {
+
+    return null;
+    return {
+      opacity: { val: 0 }
+    };
+  }
+
   render () {
     const configs = this.getEndValue();
+    const todos = this.props.todos;
+
+
+    console.log(Object.keys(configs));
+    console.log(todos);
     return (
       <TransitionSpring
+        defaultValue={this.getDefaultValue()}
         endValue={configs}
-        willEnter={this.willEnter}>
+        willEnter={this.willEnter}
+        willLeave={this.willLeave}>
         {currentValue =>
           <ul>
-          {this.props.todos.map((todo, index) => {
-            if (!currentValue[index]) {
-              console.log(currentValue, index);
-            }
-            if (!currentValue[index]) {
-              console.log(currentValue[index], Object.keys(configs).length, configs);
-              console.log(currentValue);
-              console.log(index);
-              console.log(configs);
-            }
+          {Object.keys(currentValue).map((key, index) => {
+            let todo = todos[index];
+            console.log(todo, Object.keys(currentValue));
             let style = {
-              opacity: currentValue[index].opacity.val
+              opacity: currentValue[key].opacity.val
             };
 
             return <Todo
-                        key={index}
-                        todo={todo}
-                        {...this.props}
-                        style={style} />;
+              key={key}
+              todo={todo}
+              {...this.props}
+              style={style} />;
           })}
           </ul>
         }

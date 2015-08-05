@@ -9,8 +9,10 @@ export default class Todos extends Component {
     let configs = {};
 
     todos.forEach((todo, index) => {
-      configs[`key-${index}`] = {
-        opacity: { val: 0 }
+      configs[`${index}`] = {
+        opacity: { val: 0 },
+        y: { val: -5},
+        todo
       };
     });
 
@@ -22,48 +24,43 @@ export default class Todos extends Component {
     let configs = {};
 
     todos.forEach((todo, index) => {
-      configs[`key-${index}`] = {
-        opacity: { val: 1 }
+      configs[`${index}`] = {
+        opacity: { val: 1 },
+        y: { val: 0 },
+        todo
       };
     });
 
     return configs;
   }
 
-  willEnter () {
+  willEnter (id) {
     return {
-      opacity: { val: 0 }
+      opacity: { val: 0 },
+      y: { val: -5},
+      todo: this.props.todos[id]
     };
   }
 
   willLeave () {
-
     return null;
-    return {
-      opacity: { val: 0 }
-    };
   }
 
   render () {
     const configs = this.getEndValue();
-    const todos = this.props.todos;
-    console.log(configs);
 
-    console.log(Object.keys(configs));
-    console.log(todos);
     return (
       <TransitionSpring
-        defaultValue={this.getDefaultValue()}
         endValue={configs}
-        willEnter={this.willEnter}
-        willLeave={this.willLeave}>
+        willEnter={::this.willEnter}
+        willLeave={::this.willLeave}>
         {currentValue =>
           <ul>
-          {Object.keys(currentValue).map((key, index) => {
-            let todo = todos[index];
-            console.log(todo, Object.keys(currentValue));
+          {Object.keys(currentValue).map((key) => {
+            let todo = currentValue[key].todo;
             let style = {
-              opacity: currentValue[key].opacity.val
+              opacity: currentValue[key].opacity.val,
+              transform: `translateY(${currentValue[key].y.val}px)`
             };
 
             return <Todo

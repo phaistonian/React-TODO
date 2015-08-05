@@ -10,9 +10,15 @@ export default class Header extends Component {
     this.setState({title: event.target.value});
   }
 
-
   handleSubmit (event) {
     event.preventDefault();
+
+    if (this.state.title.trim().length < 2) {
+      console.warn('Too small title');
+      event.target.focus();
+      return;
+    }
+
     this.props.add(this.state.title);
     this.setState({title: ''});
   }

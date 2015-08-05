@@ -37,7 +37,6 @@ export default class Todo extends Component {
       textDecoration: todo.completed ? 'line-through' : 'none'
     }, this.props.style);
 
-
     return (
       <li key={`key-${todo.id}`} style={styles}>
         <input

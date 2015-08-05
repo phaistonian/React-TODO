@@ -12,9 +12,15 @@ export default class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      hideCompleted: false
+      hideCompleted: false,
+      element: null
     };
+  }
 
+  componentDidMount () {
+    this.setState({
+      element: React.findDOMNode(this)
+    });
   }
 
   hideCompleted (hideCompleted) {
@@ -34,9 +40,17 @@ export default class App extends Component {
       filteredTodos = todos;
     }
 
+    const shouldFocusOnInput = true;
+
     return (
       <div>
-        <Header add={actions.add} todosLeft={MAX_TODOS - todos.length} />
+        <Header
+          shouldFocusOnInput={shouldFocusOnInput}
+          todos={filteredTodos}
+          rootElement={this.state.element}
+          add={actions.add}
+          todosLeft={MAX_TODOS - todos.length} />
+
         <Todos todos={filteredTodos} {...actions} />
         <Footer hideCompleted={::this.hideCompleted} />
       </div>

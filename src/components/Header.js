@@ -6,6 +6,22 @@ export default class Header extends Component {
     this.state = { title: '' };
   }
 
+  componentDidMount () {
+    window.addEventListener('click', (event) => {
+      if (!this.props.rootElement.contains(event.target)) {
+        console.log('yay');
+      }
+    }, false);
+  }
+
+  componentDidUpdate (props) {
+    // Passing todos as props will always trigger this to take
+    // Ideally, this should happen in the state
+    if (props.shouldFocusOnInput) {
+      this.refs.input.getDOMNode().focus();
+    }
+  }
+
   handleChange (event) {
     this.setState({title: event.target.value});
   }
